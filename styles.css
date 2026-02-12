@@ -27,7 +27,6 @@ html{
 img{
   user-select:none;
   -webkit-user-drag:none;
-  image-orientation: from-image;
 }
 
 body {
@@ -180,10 +179,6 @@ body::after{
    Album Pages
 ------------------------ */
 .album { max-width: 1200px; margin: auto; padding: 40px 20px; }
-
-.album img {
-  transform: rotate(0deg);
-}
 
 .album-page {
   margin-bottom: 120px;
