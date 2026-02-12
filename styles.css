@@ -1,0 +1,304 @@
+/* ------------------------
+   Global & Base
+------------------------ */
+.hidden { display: none !important; pointer-events: none; opacity: 0; }
+
+:root{
+  --sage: #A3A380;
+  --olive:#EAD8D8;
+  --cream:#FFF6F7;
+  --rose:#D88C9A;
+  --warm:#F3C5A9;
+}
+
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+img{
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+body {
+  font-family: 'Bahnschrift', Arial, sans-serif;
+  background-color: var(--cream);
+  padding-top: 120px;
+  color: #3e3e36;
+  position: relative;
+}
+
+.spaced-heading {
+  margin-top: 50px; /* adjust as needed */
+}
+
+
+/* -------------------------
+   Paper Texture Overlay
+------------------------- */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("images/crinkled-paper-texture.jpg");
+  background-size:400px;
+  opacity:.40;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* vignette realism */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: radial-gradient(circle at center,
+    transparent 60%,
+    rgba(0,0,0,.08) 100%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* keeps content above texture */
+.cover,
+.timeline-nav,
+.album{
+  position:relative;
+  z-index:1;
+}
+
+/* ------------------------
+   Cover Page
+------------------------ */
+.cover {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cover-paper {
+  background: #fffaf0;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-paper h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--sage);
+}
+
+.cover-paper .subtitle {
+  font-size: 1.5rem;
+  color: var(--rose);
+  margin-top: 20px;
+}
+
+/* Tape decorations */
+.tape {
+  width: 80px;
+  height: 20px;
+  background: var(--warm);
+  position: absolute;
+  background-blend-mode: overlay;
+}
+
+.tape-top { top: -10px; left: 50%; transform: translateX(-50%) rotate(-5deg); }
+.tape-bottom { bottom: -10px; left: 50%; transform: translateX(-50%) rotate(3deg); }
+
+/* ------------------------
+   Timeline
+------------------------ */
+.timeline-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px;
+  background: rgba(255,245,220,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.timeline-rope {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  right: 8%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    to right,
+    #cbbfa3 0,
+    #cbbfa3 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.timeline-nav button {
+  background: var(--cream);
+  border: 2px solid var(--sage);
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  font-family: 'Bahnschrift', Arial, sans-serif;
+  cursor: pointer;
+  z-index: 1;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.timeline-nav button.active {
+  background: var(--rose);
+  color: white;
+  transform: scale(1.3);
+}
+
+/* ------------------------
+   Album Pages
+------------------------ */
+.album { max-width: 1200px; margin: auto; padding: 40px 20px; }
+
+.album-page {
+  margin-bottom: 120px;
+  padding: 50px;
+  background:
+    linear-gradient(rgba(255,255,255,.7),rgba(255,255,255,.7)),
+    #fffaf0;
+  border-radius: 20px;
+  border: 1px solid #e0dccb;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.15),
+    inset 0 0 50px rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 1;
+}
+
+.album-page.visible { opacity: 1; transform: translateY(0); }
+
+.album-page h2 {
+  font-size: 2.2rem;
+  color: var(--sage);
+  margin-bottom: 20px;
+}
+
+.album-page .page-note {
+  font-size: 1.1rem;
+  color: var(--rose);
+  margin-bottom: 30px;
+}
+
+/* ------------------------
+   Collage / Polaroids
+------------------------ */
+.collage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+  position: relative;
+}
+
+.polaroid {
+  width: 300px;
+  background: #fffef2;
+  padding: 20px 20px 30px;
+  border-radius: 8px;
+  box-shadow:
+    0 18px 30px rgba(0,0,0,.22),
+    0 3px 8px rgba(0,0,0,.18),
+    inset 0 0 1px rgba(0,0,0,.3);
+  transform: rotate(var(--r));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* organic rotation randomness */
+.polaroid:nth-child(odd){ --r:-2deg; }
+.polaroid:nth-child(even){ --r:3deg; }
+.polaroid:nth-child(3n){ --r:-4deg; }
+
+.polaroid::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  width: 90px;
+  height: 16px;
+  background: url('images/tape-small-top.png') no-repeat;
+  background-size: contain;
+  transform: rotate(-8deg);
+  opacity: 0.9;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  background-blend-mode: overlay;
+}
+
+.polaroid::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 18px;
+  width: 70px;
+  height: 14px;
+  background: url('images/tape-small-bottom.png') no-repeat;
+  background-size: contain;
+  transform: rotate(7deg);
+  opacity: 0.9;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  background-blend-mode: overlay;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.06);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+}
+
+.polaroid img {
+  width: 100%;
+  border-radius: 6px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+
+.polaroid p {
+  margin-top: 14px;
+  font-size: 1.1rem;
+  color: var(--rose);
+  text-align: center;
+}
+
+/* ------------------------
+   Mobile
+------------------------ */
+@media (max-width:700px){
+  .polaroid{ width:90%; }
+  .timeline-nav{ gap:18px; }
+}
