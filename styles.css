@@ -27,6 +27,7 @@ html{
 img{
   user-select:none;
   -webkit-user-drag:none;
+  image-orientation: from-image;
 }
 
 body {
