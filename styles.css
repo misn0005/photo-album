@@ -181,6 +181,10 @@ body::after{
 ------------------------ */
 .album { max-width: 1200px; margin: auto; padding: 40px 20px; }
 
+.album img {
+  transform: rotate(0deg);
+}
+
 .album-page {
   margin-bottom: 120px;
   padding: 50px;
